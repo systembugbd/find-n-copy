@@ -1,0 +1,151 @@
+.app{
+  display: flex;
+  justify-content:center;
+  align-items:center;
+  flex-direction: column;
+  background:#e3e3e3 !important;
+}
+.row{
+  width:100%;
+}
+.accordion-message p{
+     color:green;
+}
+.accordion-body{
+     height:300px;
+     overflow-y: scroll;
+     max-height: 300px;
+     font-size:10px;
+}
+.modal{
+
+     justify-content:center;
+     align-items:center;
+}
+ h2{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align:center;
+ }
+.modal-body h2{
+display: flex;
+align-items: center;
+justify-content: center;
+}
+
+
+.lds-ellipsis {
+     display: inline-block;
+     position: relative;
+     width: 80px;
+     height: 80px;
+   }
+   .lds-ellipsis div {
+     position: absolute;
+     top: 33px;
+     width: 13px;
+     height: 13px;
+     border-radius: 50%;
+     background: #0085ee;
+     animation-timing-function: cubic-bezier(0, 1, 1, 0);
+   }
+   .lds-ellipsis div:nth-child(1) {
+     left: 8px;
+     animation: lds-ellipsis1 0.6s infinite;
+   }
+   .lds-ellipsis div:nth-child(2) {
+     left: 8px;
+     animation: lds-ellipsis2 0.6s infinite;
+   }
+   .lds-ellipsis div:nth-child(3) {
+     left: 32px;
+     animation: lds-ellipsis2 0.6s infinite;
+   }
+   .lds-ellipsis div:nth-child(4) {
+     left: 56px;
+     animation: lds-ellipsis3 0.6s infinite;
+   }
+   @keyframes lds-ellipsis1 {
+     0% {
+       transform: scale(0);
+     }
+     100% {
+       transform: scale(1);
+     }
+   }
+   @keyframes lds-ellipsis3 {
+     0% {
+       transform: scale(1);
+     }
+     100% {
+       transform: scale(0);
+     }
+   }
+   @keyframes lds-ellipsis2 {
+     0% {
+       transform: translate(0, 0);
+     }
+     100% {
+       transform: translate(24px, 0);
+     }
+   }
+
+   .btn{
+    word-spacing: nowrap !important;
+    min-width:170px;
+    min-height: 50px;
+  }
+
+
+   @media (max-width: 768px){
+     .col-1{
+       width:100%;
+       justify-content: center;
+       align-items: center;
+       display: flex;
+       padding-bottom: 20px;
+      
+     }
+     .col-8{
+       width:100%;
+     }
+     .btn{
+       word-spacing: nowrap !important;
+       min-width:100%;
+       min-height: 50px;
+     }
+   }
+
+
+   .item-icon{
+    margin:0 auto; display:block;
+  }
+  
+
+
+
+
+
+
+   /*
+   * Scroll bar css
+   */
+/* Customize website's scrollbar like Mac OS
+Not supports in Firefox and IE */
+
+/* total width */
+
+::-webkit-scrollbar {
+  -webkit-appearance: none;
+  height: 7px;              /* height of horizontal scrollbar ← You're missing this */
+  width: 7px; 
+ 
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background-color: rgba(0,0,0,.5);
+  -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
+}
+

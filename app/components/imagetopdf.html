@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+  <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+  <link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../css/imagetopdf.css">
+
+  <title>IMAGE TO PDF CONVERTER - BY SHAHEB</title>
+  <script src="../../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+
+  <!-- <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet"> -->
+
+
+  <script type="module" src="../js/imagetopdf.js"></script>
+
+</head>
+
+<body>
+  <h1 class="text-center">IMAGE TO PDF CONVERTER</h1>
+
+
+  <div class="container-fluid app">
+
+    <!-- Button trigger modal -->
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModalLabel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Finding to the given location Please Wait...</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+
+          <h2>FNC Processing <div class="lds-ellipsis">
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
+          </h2>
+        </div>
+        <div class="modal-footer">
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+    <div class="row justify-content-center align-self-center">
+
+      <div class="col-8">
+
+
+        <div class="input-group mb-3">
+          <span class="input-group-text btn-danger" id="basic-addon3">Destination Folder Path</span>
+          <input type="text" class="form-control" id="distUrl" aria-describedby="basic-addon3" value=""
+            placeholder="Ex: C:\Users\name\drive-location\pdf\seperate_pdf " />
+        </div>
+
+
+
+        <div class="form-group inputDnD">
+          <form>
+            <label class="sr-only" for="inputFile">File Upload</label>
+            <input type="file" class="form-control-file text-primary font-weight-bold" id="inputFile" accept="image/*"
+              data-title="Drag and drop or Browser file to convert" data-count="(0) File converting..." multiple>
+
+          </form>
+
+
+        </div>
+
+
+      </div>
+
+      <div class="col-1 align-self-center">
+
+
+        <button type="button" class="btn btn-primary" id="imagetopdf">Convert</button>
+        <!-- data-bs-toggle="modal" data-bs-target="#exampleModal" -->
+
+      </div>
+
+    </div>
+
+
+    <!--
+        Show Working...
+      -->
+    <div class="row justify-content-center align-self-center">
+      <div class="col-8 justify-content-center align-self-center">
+        <div class="accordion" id="accordionExample">
+
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+              <button class="accordion-button" id="headingDetails" type="button" data-bs-toggle="collapse"
+                data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true"
+                aria-controls="panelsStayOpen-collapseOne">
+                <span class="justify-content-start align-self-start"></span>Image to PDF Convertion Details</span>
+                <span class="justify-content-end align-self-end"> »</span>
+              </button>
+            </h2>
+            <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show"
+              aria-labelledby="panelsStayOpen-headingOne">
+              <div class="accordion-body" id="searchFileDetails">
+                Here is your file convertion details...
+              </div>
+              <div class="accordion-message" id="showSuccessMsg"></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="col-1 align-self-center">
+
+      </div>
+
+    </div>
+
+    <div class="col-9 align-self-center justify-content-center text-center vertical-bottom">
+      We are using Node.js <span id="node-version"></span>,
+      Chromium <span id="chrome-version"></span>,
+      and Electron <span id="electron-version"></span>.
+      All Right Reserved &copy; Copyright 2021, By <a href="http://www.github.com/systembugbd" target="_blank">Shaheb
+        Ali</a>
+    </div>
+
+  </div>
+  <!-- <script src="./cli.js"></script> -->
+
+  <!-- MDB -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.js"></script>
+
+
+</body>
+
+</html>

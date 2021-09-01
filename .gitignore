@@ -1,0 +1,5 @@
+node_modules
+srouce
+out
+
+app/components/template/*

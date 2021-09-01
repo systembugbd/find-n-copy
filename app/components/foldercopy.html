@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+  <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+  <link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../css/foldercopy.css">
+
+  <title>FIND REF. FOLDER - BY SHAHEB</title>
+  <script type="module" src="../js/foldercopy.js"></script>
+  <script src="../../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+
+  <!-- <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet"> -->
+
+</head>
+
+<body>
+  <div class="containe-fluid">
+    <div class="justify-content-center align-self-center">
+      <img src="../assets/images/Search-folder.png" width="100" height="auto" alt="" class="item-icon" />
+    </div>
+  </div>
+  <h1 class="text-center">FIND REF. FOLDER</h1>
+
+
+  <div class="container-fluid app">
+
+    <!-- Button trigger modal -->
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModalLabel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Finding to the given location Please Wait...</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+
+            <h2>FNC Processing <div class="lds-ellipsis">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+              </div>
+            </h2>
+          </div>
+          <div class="modal-footer">
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+    <div class="row justify-content-center align-self-center">
+
+      <div class="col-8">
+        <br>
+        <label for="basic-url" class="form-label label-info">Please provide your vanity URL, (Ctrl+r) to Refresh
+          Window</label>
+        <br>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked>
+          <label class="form-check-label" for="flexRadioDefault1">
+            Find-N-Copy&nbsp;Synchronously
+          </label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
+          <label class="form-check-label" for="flexRadioDefault2">
+            Find-N-Copy&nbsp;ASynchronously
+          </label>
+        </div>
+        <br>
+
+
+        <div class="input-group mb-3">
+          <span class="input-group-text btn-danger" id="basic-addon3">LOCAL or SERVER/sourceURL(approx)</span>
+          <input type="text" class="form-control" id="sourceurl" aria-describedby="basic-addon3" value=""
+            placeholder="Ex: \\000.000.000.00\category\client\type\team\name\quarter\type\" />
+        </div>
+
+        <div class="input-group mb-3">
+          <span class="input-group-text btn-warning" id="basic-addon3">FOLDER NAME</span>
+          <input type="text" class="form-control" id="foldername" aria-describedby="basic-addon3" value=""
+            placeholder="Folder name/id (ex): 123456 " />
+        </div>
+
+
+      </div>
+      <div class="col-1 align-self-center ">
+          <button type="button" class="btn btn-primary " id="findfolderncopy"> <img
+            src="../assets/images/Search-folder-white.png" width="30" height="auto" alt="" class="item-icon" /> FIND
+          FOLDER</button>
+
+
+      </div>
+
+    </div>
+
+
+    <!--
+        Show Working...
+      -->
+    <div class="row justify-content-center align-self-center">
+      <div class="col-8 justify-content-center align-self-center">
+        <div class="accordion" id="accordionExample">
+
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+              <button class="accordion-button" id="headingDetails" type="button" data-bs-toggle="collapse"
+                data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true"
+                aria-controls="panelsStayOpen-collapseOne">
+                <span class="justify-content-start align-self-start"></span>Searching Details</span>
+                <span class="justify-content-end align-self-end"> »</span>
+              </button>
+            </h2>
+            <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show"
+              aria-labelledby="panelsStayOpen-headingOne">
+              <div class="accordion-body" id="searchFileDetails">
+                Here is your file searching details...
+              </div>
+              <div class="accordion-message" id="showSuccessMsg"></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="col-1 align-self-center">
+
+      </div>
+
+    </div>
+
+    <div class="col-9 align-self-center justify-content-center text-center vertical-bottom">
+      We are using Node.js <span id="node-version"></span>,
+      Chromium <span id="chrome-version"></span>,
+      and Electron <span id="electron-version"></span>.
+      All Right Reserved &copy; Copyright 2021, By <a href="http://www.github.com/systembugbd" target="_blank">Shaheb
+        Ali</a>
+    </div>
+
+  </div>
+  <!-- <script src="./cli.js"></script> -->
+</body>
+
+</html>
