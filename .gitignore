@@ -2,5 +2,5 @@ node_modules
 srouce
 out
 
-app/components/template/jpg
-app/components/template/html-pdf
+app/components/template/jpg/*
+app/components/template/html-pdf/*
