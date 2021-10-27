@@ -1,81 +1,82 @@
-const fs = require("fs");
-const path = require("path");
-const HTMLTOPDF = require("html-pdf");
-const searchFileDetails = document.querySelector("#searchFileDetails");
-const activityName = document.querySelector("#activityName");
-const showSuccessMsg = document.querySelector("#showSuccessMsg");
-const headingDetails = document.querySelector("#headingDetails");
-const distUrl = document.querySelector("#distUrl");
-const inputFile = document.querySelector("#inputFile");
-const inputFile2 = document.querySelector("#inputFile");
-const htmltopdf = document.querySelector("#htmltopdf");
-const width = document.querySelector("#width");
-const height = document.querySelector("#height");
-const imagePlaceholder = document.querySelector("#imagePlaceholder");
+const fs = require('fs');
+const path = require('path');
+const HTMLTOPDF = require('html-pdf');
+const searchFileDetails = document.querySelector('#searchFileDetails');
+const activityName = document.querySelector('#activityName');
+const showSuccessMsg = document.querySelector('#showSuccessMsg');
+const headingDetails = document.querySelector('#headingDetails');
+const distUrl = document.querySelector('#distUrl');
+const inputFile = document.querySelector('#inputFile');
+const inputFile2 = document.querySelector('#inputFile');
+const htmltopdf = document.querySelector('#htmltopdf');
+const width = document.querySelector('#width');
+const height = document.querySelector('#height');
+const imagePlaceholder = document.querySelector('#imagePlaceholder');
 
-const tempPathJPG = "../components/template/jpg"
-const tempPathHTML = "../components/template/html-pdf"
+const tempPathJPG = '../components/template/jpg';
+const tempPathHTML = '../components/template/html-pdf';
 
 const fsPromises = fs.promises;
 
 const loadFIle = (files) => {
   if (files === 0) {
-    let dataTitle = inputFile.getAttribute("data-count");
-    inputFile.setAttribute("data-count", `(0) File converting...`);
+    let dataTitle = inputFile.getAttribute('data-count');
+    inputFile.setAttribute('data-count', `(0) File converting...`);
   } else {
-    inputFile.classList.remove("success");
-    let dataTitle = inputFile.getAttribute("data-count");
+    inputFile.classList.remove('success');
+    let dataTitle = inputFile.getAttribute('data-count');
     inputFile.setAttribute(
-      "data-count",
+      'data-count',
       `${
         inputFile.files.length == 1
-          ? inputFile.files.length + " File converting..."
-          : inputFile.files.length + " Files converting..."
+          ? inputFile.files.length + ' File converting...'
+          : inputFile.files.length + ' Files converting...'
       }`
     );
   }
 };
 
-inputFile.addEventListener("change", (e) => {
+inputFile.addEventListener('change', (e) => {
   loadFIle(e.target.files.length);
 });
 
-htmltopdf.addEventListener("click", (e) => {
+htmltopdf.addEventListener('click', (e) => {
   // console.log(inputFile.files);
   if (inputFile.files.length === 0) {
-    let dataTitle = inputFile.getAttribute("data-count");
+    let dataTitle = inputFile.getAttribute('data-count');
     inputFile.setAttribute(
-      "data-count",
+      'data-count',
       `\nPlease Select at least one or more file, before Convert`
     );
-    inputFile.classList.add("error");
+    inputFile.classList.add('error');
 
     return;
   } else {
-    inputFile.classList.remove("error");
-    inputFile.classList.remove("success");
+    inputFile.classList.remove('error');
+    inputFile.classList.remove('success');
 
     if (inputFile.files.length !== 0) {
-      let dataTitle = inputFile.getAttribute("data-count");
+      let dataTitle = inputFile.getAttribute('data-count');
       inputFile.setAttribute(
-        "data-count",
-        `${inputFile.files.length == 1
-          ? inputFile.files.length + " File converting..."
-          : inputFile.files.length + " Files converting..."
+        'data-count',
+        `${
+          inputFile.files.length == 1
+            ? inputFile.files.length + ' File converting...'
+            : inputFile.files.length + ' Files converting...'
         }`
       );
-      inputFile.classList.remove("success");
+      inputFile.classList.remove('success');
     }
 
     let filePath = path.join(inputFile.files[0].path);
     let dirname = path.dirname(filePath);
- 
+
     let originalFileName = path.join(inputFile.files[0].name);
     let filenameForPdf = originalFileName.match(/([^\/]+)(?=\.\w+$)/)[0];
-    let ext = originalFileName.split(".")[1];
+    let ext = originalFileName.split('.')[1];
 
-    let pdfwidth = "2000"; // width.value;
-    let pdfheight = "2000"; //height.value;
+    let pdfwidth = '2000'; // width.value;
+    let pdfheight = '2000'; //height.value;
     makeHtmlFileFirst(
       inputFile.files,
       dirname,
@@ -103,45 +104,45 @@ function getMeta(originalImagePath, callback) {
  * @returns html content with image
  */
 function buildHtml(inputFile) {
-  let fileName = "";
-  let originalImagePath = "";
+  let fileName = '';
+  let originalImagePath = '';
 
-  let html = document.createElement("html");
-  let head = document.createElement("head");
-  let title = document.createElement("title");
+  let html = document.createElement('html');
+  let head = document.createElement('head');
+  let title = document.createElement('title');
 
-  let body = document.createElement("body");
+  let body = document.createElement('body');
 
-  body.style.width = "1800";
+  body.style.width = '1800';
 
   for (let i = 0; i < inputFile.length; i++) {
     originalImagePath = inputFile[i].path;
     fileName = originalImagePath
       .substring(
-        originalImagePath.lastIndexOf("\\") + 1,
+        originalImagePath.lastIndexOf('\\') + 1,
         originalImagePath.length
       )
       .match(/([^\/]+)(?=\.\w+$)/).input;
 
-    let imgDiv = document.createElement("div");
-    let imgTable = document.createElement("table");
+    let imgDiv = document.createElement('div');
+    let imgTable = document.createElement('table');
 
-    let tr1 = document.createElement("tr");
-    let tr2 = document.createElement("tr");
-    let td1 = document.createElement("td");
-    let td2 = document.createElement("td");
+    let tr1 = document.createElement('tr');
+    let tr2 = document.createElement('tr');
+    let td1 = document.createElement('td');
+    let td2 = document.createElement('td');
 
     var img = new Image();
     img.src = inputFile[i].path;
     img.onload = function () {
-      imgDiv.style.display = "inline";
-      imgDiv.style.verticalAlign = "top";
-      imgDiv.style.float = "left";
-      imgDiv.style.marginRight = "20px";
-      imgDiv.style.marginBottom = "20px";
+      imgDiv.style.display = 'inline';
+      imgDiv.style.verticalAlign = 'top';
+      imgDiv.style.float = 'left';
+      imgDiv.style.marginRight = '20px';
+      imgDiv.style.marginBottom = '20px';
 
-      imgTable.style.border = "0";
-      imgTable.style.display = "inline-block";
+      imgTable.style.border = '0';
+      imgTable.style.display = 'inline-block';
 
       td1.innerHTML = `<p>${this.width} x ${this.height}</p>`;
       td2.innerHTML = `<img src='../jpg/${fileName}' width="${this.width}" height="${this.height}" />`;
@@ -184,29 +185,25 @@ const makeHtmlFileFirst = (
   pdfwidth,
   pdfheight
 ) => {
-
   let distPath = path.join(__dirname, `../components/template/html-pdf`);
-  let html = "";
+  let html = '';
 
   let imgAttr = {};
-  let headerName = "";
+  let headerName = '';
 
   for (let i = 0; i < inputFile.length; i++) {
     let originalImagePath = inputFile[i].path;
 
     let fileName = originalImagePath
       .substring(
-        originalImagePath.lastIndexOf("\\") + 1,
+        originalImagePath.lastIndexOf('\\') + 1,
         originalImagePath.length
       )
       .match(/([^\/]+)(?=\.\w+$)/).input;
 
     headerName = fileName; //Activity name
 
-    let templateImagePath = path.join(
-      __dirname,
-      `${tempPathJPG}/${fileName}`
-    );
+    let templateImagePath = path.join(__dirname, `${tempPathJPG}/${fileName}`);
 
     let distPath = path.join(__dirname, tempPathHTML);
 
@@ -214,22 +211,19 @@ const makeHtmlFileFirst = (
 
     // let template = path.join(`${distPaths}/index_SA.html`);
     let html_file_path =
-      distUrl.value != ""
-        ? path.join(distUrl.value, "/html-pdf/index_SA.html")
+      distUrl.value != ''
+        ? path.join(distUrl.value, '/html-pdf/index_SA.html')
         : template;
 
-    if (distUrl.value != "") {
-      let baseDistHtmlPath = path.join(distUrl.value, "/html-pdf");
+    if (distUrl.value != '') {
+      let baseDistHtmlPath = path.join(distUrl.value, '/html-pdf');
 
       if (!fs.existsSync(baseDistHtmlPath)) {
         fs.mkdirSync(baseDistHtmlPath);
       }
     } else {
-      let tempHTMLPath = path.join(
-        __dirname,
-        tempPathHTML
-      );
-      let templateJpgPath = path.join(__dirname, "../components/template/");
+      let tempHTMLPath = path.join(__dirname, tempPathHTML);
+      let templateJpgPath = path.join(__dirname, '../components/template/');
 
       if (!fs.existsSync(tempHTMLPath)) {
         fs.mkdirSync(tempHTMLPath);
@@ -246,19 +240,17 @@ const makeHtmlFileFirst = (
 
     // let htmlFile = fs.readFileSync(html_file_path, "utf8"); //not in use
 
-    distUrl.value == ""
+    distUrl.value == ''
       ? fs.copyFileSync(originalImagePath, templateImagePath)
-      : "";
+      : '';
 
     imgAttr[i] = {}; //for multidimension dimention array
- 
-     
-    var dimensionPattern = /([0-9]{1,4}[A-Za-z][0-9]{1,4})\d+/g;
+
+    var dimensionPattern = /([0-9]{1,4}[A-Za-z][0-9]{1,4})/g;
     var size = fileName.match(dimensionPattern);
 
-
     // console.log(size[1]);
-
+    let splitSize = size[1].split('x');
 
     html += `
       \n
@@ -270,7 +262,7 @@ const makeHtmlFileFirst = (
                 <td><p style="font-family: arial">${size[1]}</p></td>
               </tr>
               <tr>
-                <td><img src="../jpg/${fileName}" width="auto" height="100%" /></td>
+                <td><img src="../jpg/${fileName}" width="${splitSize[0]}" height="${splitSize[1]}" /></td>
               </tr>
             </tbody>
           </table>
@@ -285,8 +277,8 @@ const makeHtmlFileFirst = (
   // let template = path.join();
   let template = path.join(`${distPaths}/index_SA.html`);
   let html_file_path =
-    distUrl.value != ""
-      ? path.join(distUrl.value, "/html-pdf/index_SA.html")
+    distUrl.value != ''
+      ? path.join(distUrl.value, '/html-pdf/index_SA.html')
       : template;
 
   // let htmlContent = buildHtml(inputFile)
@@ -301,9 +293,9 @@ const makeHtmlFileFirst = (
     fs.writeFile(
       html_file_path,
       `<p style="font-family: arial">${
-        activityName.value != "" ? activityName.value : headerName
+        activityName.value != '' ? activityName.value : headerName
       }</p>`,
-      "utf8",
+      'utf8',
       function (err) {
         if (err) {
           console.log(err);
@@ -316,30 +308,23 @@ const makeHtmlFileFirst = (
 
   function appendImageContentInHTML() {
     setTimeout(() => {
-      fs.appendFile(html_file_path, html, "utf8", function (err) {
+      fs.appendFile(html_file_path, html, 'utf8', function (err) {
         if (err) {
           console.log(err);
         }
       });
-      require("electron").shell.openExternal(html_file_path);
+      require('electron').shell.openExternal(html_file_path);
       // alert('HTML is Ready, will Open shortly in your browser, please few sec.');
-
-     
     }, inputFile.length * 50);
 
-  
     inputFile2.setAttribute(
-      "data-count",
+      'data-count',
       `\nHTML File Created Successfully, Please have a look in browser.`
     );
-    inputFile2.classList.add("success");
-
+    inputFile2.classList.add('success');
   }
   // console.log(html_file_path) //Once PDF is one then make below line uncomment
   // htmltopdfGenerator( "pdf", distPaths, template, filenameForPdf, ext,  pdfwidth, pdfheight)
-
- 
-  
 };
 
 /****************************************** PDF GENERATOR *****************************************************/
@@ -368,13 +353,12 @@ const htmltopdfGenerator = (
   pdfheight
 ) => {
   const pdfFilePath =
-    distUrl.value == ""
+    distUrl.value == ''
       ? path.join(distPaths, `${fileName}.${typeOfConvertion}`)
       : path.join(distUrl.value, `${fileName}.${typeOfConvertion}`);
   const htmlFilePath = templatePath;
-  
+
   try {
-  
     // required for html file
     if (!fs.existsSync(htmlFilePath)) {
       alert(
@@ -383,18 +367,18 @@ const htmltopdfGenerator = (
       return;
     }
 
-    const readHTMLFile = fs.readFileSync(htmlFilePath, "utf-8");
+    const readHTMLFile = fs.readFileSync(htmlFilePath, 'utf-8');
 
-    const quality = typeOfConvertion == "pdf" ? 200 : 300;
+    const quality = typeOfConvertion == 'pdf' ? 200 : 300;
 
     const option = {
       type: typeOfConvertion,
       quality: quality,
       renderDelay: 2000,
-      format: "undefined",
+      format: 'undefined',
       width: `${pdfwidth}px`,
       height: `${pdfheight}px`,
-      orientation: "portrait",
+      orientation: 'portrait',
     };
 
     HTMLTOPDF.create(readHTMLFile, option).toFile(
@@ -404,16 +388,14 @@ const htmltopdfGenerator = (
           alert(err);
         } else {
           // console.log(result);
-          require("electron").shell.openExternal(htmlFilePath);
+          require('electron').shell.openExternal(htmlFilePath);
 
-          let dataTitle = inputFile.getAttribute("data-count");
+          let dataTitle = inputFile.getAttribute('data-count');
           inputFile.setAttribute(
-            "data-count",
+            'data-count',
             `\nHTML File Created Successfully, Please have a look in browser.`
           );
-          inputFile.classList.add("success");
-
-         
+          inputFile.classList.add('success');
         }
       }
     );
@@ -421,4 +403,3 @@ const htmltopdfGenerator = (
     alert(error.message);
   }
 };
-  
