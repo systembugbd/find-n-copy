@@ -246,11 +246,11 @@ const makeHtmlFileFirst = (
 
     imgAttr[i] = {}; //for multidimension dimention array
 
-    var dimensionPattern = /([0-9]{1,4}[A-Za-z][0-9]{1,4})/g;
+    var dimensionPattern = /([0-9]{1,4}[W-Yw-y][0-9]{1,4})/g;
     var size = fileName.match(dimensionPattern);
 
-    // console.log(size[1]);
-    let splitSize = size[1].split('x');
+    // console.log(fileName, dimensionPattern);
+    var dim = size[1].split('x');
 
     html += `
       \n
@@ -262,7 +262,7 @@ const makeHtmlFileFirst = (
                 <td><p style="font-family: arial">${size[1]}</p></td>
               </tr>
               <tr>
-                <td><img src="../jpg/${fileName}" width="${splitSize[0]}" height="${splitSize[1]}" /></td>
+                <td><img src="../jpg/${fileName}" width="${dim[0]}" height="${dim[1]}" /></td>
               </tr>
             </tbody>
           </table>
