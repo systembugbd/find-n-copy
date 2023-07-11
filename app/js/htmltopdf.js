@@ -9,6 +9,8 @@ const distUrl = document.querySelector("#distUrl");
 const inputFile = document.querySelector("#inputFile");
 const inputFile2 = document.querySelector("#inputFile");
 const htmltopdf = document.querySelector("#htmltopdf");
+const columnNumber = document.querySelector("#columnNumber");
+const isDimensionRequired = document.getElementById("isDimensionRequired");
 const width = document.querySelector("#width");
 const height = document.querySelector("#height");
 const imagePlaceholder = document.querySelector("#imagePlaceholder");
@@ -259,17 +261,21 @@ const makeHtmlFileFirst = (
           <table border="0" style="display:inline-block;">
             <tbody>
               <tr>
-                <td><p style="font-family: arial">${size[1]}</p></td>
+                <td><p style="font-family: arial">${
+                  isDimensionRequired.checked == true ? size[1] : ""
+                }</p></td>
               </tr>
               <tr>
-                <td><img src="../jpg/${fileName}" width="${dim[0]}" height="${dim[1]}" /></td>
+                <td><img src="../jpg/${fileName}" width="${dim[0]}" height="${
+      dim[1]
+    }" /></td>
               </tr>
             </tbody>
           </table>
           </div>    
           
  `;
-    var col = 3;
+    var col = columnNumber.value;
     if ((i + 1) % col == 0) {
       html += `<div style="clear:both">&nbsp;</div>`;
     }
