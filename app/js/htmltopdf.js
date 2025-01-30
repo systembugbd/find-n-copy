@@ -330,18 +330,19 @@ const makeHtmlFileFirst = (
                     (isJapanRecquirement.checked
                       ? `<span style="color:red; font-weight:bold;padding-left:calc(${
                           img.dimension.split("x")[0]
-                        }px - 400px)"> [Place Your Product name here]</span>` +
-                        (addAnchor.checked
-                          ? `<span><a style="${
-                              index == 0
-                                ? "display:none"
-                                : "display:inline-block"
-                            }" href="#${index - 1}">↟</a> <a style="${
-                              index == imgAttr.length - 1
-                                ? "display:none"
-                                : "display:inline-block"
-                            }" href="#${index + 1}">↡</a></span>`
-                          : "")
+                        }px - 40%)"> [Place Your Product name here]</span>`
+                      : "") +
+                    " " +
+                    (addAnchor.checked
+                      ? `<span><a class="link" style="${
+                          index == 0
+                            ? "display:none"
+                            : "display:inline-block; padding: 2px 5px; --hover-color: green"
+                        }" href="#${index - 1}">↟</a> <a class="link" style="${
+                          index == imgAttr.length - 1
+                            ? "display:none"
+                            : "display:inline-block; padding: 2px 5px; --hover-color: red"
+                        }" href="#${index + 1}">↡</a></span>`
                       : "")
                   : img.dimension
               }</p></td>
@@ -386,6 +387,13 @@ const makeHtmlFileFirst = (
           <style>
               body {
                   width: 1800px;
+              }
+              .link{
+                padding: 2px 5px !important;
+              }
+              :hover {
+                background: var(--hover-color);
+               
               }
           </style>
       </head>
