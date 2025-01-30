@@ -10,10 +10,13 @@ const inputFile = document.querySelector("#inputFile");
 const inputFile2 = document.querySelector("#inputFile");
 const htmltopdf = document.querySelector("#htmltopdf");
 const columnNumber = document.querySelector("#columnNumber");
-const isDimensionRequired = document.getElementById("isDimensionRequired");
 const width = document.querySelector("#width");
 const height = document.querySelector("#height");
 const imagePlaceholder = document.querySelector("#imagePlaceholder");
+const isDimensionRequired = document.getElementById("isDimensionRequired");
+const isJapanRecquirement = document.querySelector("#isJapanRecquirement");
+const isCtaExists = document.querySelector("#isCtaExists");
+const addAnchor = document.querySelector("#addAnchor");
 
 const tempPathJPG = "../components/template/jpg";
 const tempPathHTML = "../components/template/html-pdf";
@@ -77,8 +80,9 @@ htmltopdf.addEventListener("click", (e) => {
     let filenameForPdf = originalFileName.match(/([^\/]+)(?=\.\w+$)/)[0];
     let ext = originalFileName.split(".")[1];
 
-    let pdfwidth = "2000"; // width.value;
-    let pdfheight = "2000"; //height.value;
+    let pdfwidth = "2000"; // need to set dynamic input value #input.value;
+    let pdfheight = "2000"; // need to set dynamic input value #input.value;
+
     makeHtmlFileFirst(
       inputFile.files,
       dirname,
@@ -88,7 +92,15 @@ htmltopdf.addEventListener("click", (e) => {
       pdfwidth,
       pdfheight
     );
-    // htmltopdfGenerator("pdf", dirname, originalFileName, filenameForPdf, ext, pdfwidth, pdfheight);
+    // htmltopdfGenerator(
+    //   "pdf",
+    //   dirname,
+    //   originalFileName,
+    //   filenameForPdf,
+    //   ext,
+    //   pdfwidth,
+    //   pdfheight
+    // );
   } //else
 });
 
@@ -105,68 +117,116 @@ function getMeta(originalImagePath, callback) {
  * @param {*} inputFile
  * @returns html content with image
  */
-function buildHtml(inputFile) {
-  let fileName = "";
-  let originalImagePath = "";
+// function buildHtml(inputFile) {
+//   let fileName = "";
+//   let originalImagePath = "";
 
-  let html = document.createElement("html");
-  let head = document.createElement("head");
-  let title = document.createElement("title");
+//   let htmlDoc = document.implementation.createHTMLDocument("Draggable Images");
 
-  let body = document.createElement("body");
+//   let head = htmlDoc.head;
+//   let title = htmlDoc.createElement("title");
+//   title.textContent = "Draggable Images";
 
-  body.style.width = "1800";
+//   let metaViewport = htmlDoc.createElement("meta");
+//   metaViewport.name = "viewport";
+//   metaViewport.content = "width=device-width, initial-scale=1.0";
 
-  for (let i = 0; i < inputFile.length; i++) {
-    originalImagePath = inputFile[i].path;
-    fileName = originalImagePath
-      .substring(
-        originalImagePath.lastIndexOf("\\") + 1,
-        originalImagePath.length
-      )
-      .match(/([^\/]+)(?=\.\w+$)/).input;
+//   // Create and append dynamic styles to head
+//   let style = htmlDoc.createElement("style");
+//   style.innerHTML = `
+//       .draggable {
+//           position: absolute; /* Ensure the element is positioned absolutely */
+//           cursor: grab;
+//       }
+//       body {
+//           width: 1800px; /* Ensure width has px */
+//       }
+//   `;
 
-    let imgDiv = document.createElement("div");
-    let imgTable = document.createElement("table");
+//   head.appendChild(title);
+//   head.appendChild(metaViewport);
+//   head.appendChild(style);
 
-    let tr1 = document.createElement("tr");
-    let tr2 = document.createElement("tr");
-    let td1 = document.createElement("td");
-    let td2 = document.createElement("td");
+//   let body = htmlDoc.body;
 
-    var img = new Image();
-    img.src = inputFile[i].path;
-    img.onload = function () {
-      imgDiv.style.display = "inline";
-      imgDiv.style.verticalAlign = "top";
-      imgDiv.style.float = "left";
-      imgDiv.style.marginRight = "20px";
-      imgDiv.style.marginBottom = "20px";
+//   for (let i = 0; i < inputFile.length; i++) {
+//       originalImagePath = inputFile[i].path;
+//       fileName = originalImagePath
+//           .substring(
+//               originalImagePath.lastIndexOf("\\") + 1,
+//               originalImagePath.length
+//           )
+//           .match(/([^\/]+)(?=\.\w+$)/).input;
 
-      imgTable.style.border = "0";
-      imgTable.style.display = "inline-block";
+//       let imgDiv = document.createElement("div");
+//       let imgTable = document.createElement("table");
 
-      td1.innerHTML = `<p>${this.width} x ${this.height}</p>`;
-      td2.innerHTML = `<img src='../jpg/${fileName}' width="${this.width}" height="${this.height}" />`;
+//       let tr1 = document.createElement("tr");
+//       let tr2 = document.createElement("tr");
+//       let td1 = document.createElement("td");
+//       let td2 = document.createElement("td");
 
-      tr1.appendChild(td1);
-      tr2.appendChild(td2);
-      imgTable.appendChild(tr1);
-      imgTable.appendChild(tr2);
+//       var img = new Image();
+//       img.src = inputFile[i].path;
+//       img.onload = function () {
+//           imgDiv.style.display = "inline";
+//           imgDiv.style.verticalAlign = "top";
+//           imgDiv.style.marginRight = "20px";
+//           imgDiv.style.marginBottom = "20px";
+//           imgDiv.className = "draggable"; // Add draggable class
 
-      imgDiv.appendChild(imgTable);
-      body.appendChild(imgDiv);
-    };
-  }
+//           imgTable.style.border = "0";
+//           imgTable.style.display = "inline-block";
+//           td1.innerHTML = `<p>${this.width} x ${this.height}</p>`;
+//           td2.innerHTML = `<img src='../jpg/${fileName}' width="${this.width}" height="${this.height}" />`;
 
-  title.innerHTML = fileName;
+//           tr1.appendChild(td1);
+//           tr2.appendChild(td2);
+//           imgTable.appendChild(tr1);
+//           imgTable.appendChild(tr2);
 
-  head.appendChild(title);
-  html.appendChild(head);
-  html.appendChild(body);
+//           imgDiv.appendChild(imgTable);
+//           body.appendChild(imgDiv);
 
-  return html;
-}
+//           makeElementDraggable(imgDiv); // Make imgDiv draggable
+//       };
+//   }
+
+//   return `<!DOCTYPE html>${htmlDoc.documentElement.outerHTML}`;
+// }
+
+// function makeElementDraggable(element) {
+//   let shiftX, shiftY;
+
+//   element.addEventListener('mousedown', (event) => {
+//       shiftX = event.clientX - element.getBoundingClientRect().left;
+//       shiftY = event.clientY - element.getBoundingClientRect().top;
+
+//       element.style.position = 'absolute';
+//       element.style.zIndex = 1000;
+//       document.body.append(element);
+
+//       moveAt(event.pageX, event.pageY);
+
+//       function moveAt(pageX, pageY) {
+//           element.style.left = pageX - shiftX + 'px';
+//           element.style.top = pageY - shiftY + 'px';
+//       }
+
+//       function onMouseMove(event) {
+//           moveAt(event.pageX, event.pageY);
+//       }
+
+//       document.addEventListener('mousemove', onMouseMove);
+
+//       element.addEventListener('mouseup', () => {
+//           document.removeEventListener('mousemove', onMouseMove);
+//           element.onmouseup = null;
+//       });
+//   });
+
+//   element.ondragstart = () => false;
+// }
 
 /**
  *
@@ -187,10 +247,8 @@ const makeHtmlFileFirst = (
   pdfwidth,
   pdfheight
 ) => {
-  let distPath = path.join(__dirname, `../components/template/html-pdf`);
   let html = "";
-
-  let imgAttr = {};
+  let imgAttr = [];
   let headerName = "";
 
   for (let i = 0; i < inputFile.length; i++) {
@@ -203,7 +261,7 @@ const makeHtmlFileFirst = (
       )
       .match(/([^\/]+)(?=\.\w+$)/).input;
 
-    headerName = fileName; //Activity name
+    headerName = fileName; // Activity name
 
     let templateImagePath = path.join(__dirname, `${tempPathJPG}/${fileName}`);
 
@@ -211,7 +269,6 @@ const makeHtmlFileFirst = (
 
     let template = path.join(`${distPath}/index_SA.html`);
 
-    // let template = path.join(`${distPaths}/index_SA.html`);
     let html_file_path =
       distUrl.value != ""
         ? path.join(distUrl.value, "/html-pdf/index_SA.html")
@@ -235,65 +292,80 @@ const makeHtmlFileFirst = (
       }
     }
 
-    //write file after few second as per image
     if (!fs.existsSync(html_file_path)) {
       fs.createWriteStream(html_file_path);
     }
-
-    // let htmlFile = fs.readFileSync(html_file_path, "utf8"); //not in use
 
     distUrl.value == ""
       ? fs.copyFileSync(originalImagePath, templateImagePath)
       : "";
 
-    imgAttr[i] = {}; //for multidimension dimention array
+    let dimensionPattern = /([0-9]{1,4}[W-Yw-y][0-9]{1,4})/g;
+    let size = fileName.match(dimensionPattern);
 
-    var dimensionPattern = /([0-9]{1,4}[W-Yw-y][0-9]{1,4})/g;
-    var size = fileName.match(dimensionPattern);
+    let dim = size[1].split("x");
 
-    // console.log(fileName, dimensionPattern);
-    var dim = size[1].split("x");
+    imgAttr.push({
+      width: parseInt(dim[0]),
+      height: parseInt(dim[1]),
+      fileName: fileName,
+      dimension: size[1],
+    });
+  }
 
+  // Sort images by their area (width * height)
+  imgAttr.sort((a, b) => a.width * a.height - b.width * b.height);
+
+  // Generate HTML
+  imgAttr.forEach((img, index) => {
     html += `
-      \n
-        
-         <div style="display:inline-block; vertical-align:top; float:left; margin-right:20px; margin-bottom:20px;">
-          <table border="0" style="display:inline-block;">
-            <tbody>
-              <tr>
-                <td><p style="font-family: arial">${
-                  isDimensionRequired.checked == true ? size[1] : ""
-                }</p></td>
-              </tr>
-              <tr>
-                <td><img src="../jpg/${fileName}" width="${dim[0]}" height="${
-      dim[1]
-    }" /></td>
-              </tr>
-            </tbody>
-          </table>
-          </div>    
-          
- `;
-    var col = columnNumber.value;
-    if ((i + 1) % col == 0) {
+      <div id=${index} style="display:inline-block; vertical-align:top; float:left; margin-right:20px; margin-bottom:20px;">
+        <table border="0" style="display:inline-block;">
+          <tbody>
+            <tr>
+              <td><p style="font-family: arial">${
+                isDimensionRequired.checked
+                  ? img.dimension +
+                    (isCtaExists.checked ? "_No_CTA" : " ") +
+                    (isJapanRecquirement.checked
+                      ? `<span style="color:red; font-weight:bold;padding-left:calc(${
+                          img.dimension.split("x")[0]
+                        }px - 400px)"> [Place Your Product name here]</span>` +
+                        (addAnchor.checked
+                          ? `<span><a style="${
+                              index == 0
+                                ? "display:none"
+                                : "display:inline-block"
+                            }" href="#${index - 1}">↟</a> <a style="${
+                              index == imgAttr.length - 1
+                                ? "display:none"
+                                : "display:inline-block"
+                            }" href="#${index + 1}">↡</a></span>`
+                          : "")
+                      : "")
+                  : img.dimension
+              }</p></td>
+            </tr>
+            <tr>
+              <td><img src="../jpg/${img.fileName}" width="${
+      img.width
+    }" height="${img.height}" /></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>`;
+    let col = columnNumber.value;
+    if ((index + 1) % col === 0) {
       html += `<div style="clear:both">&nbsp;</div>`;
     }
-  } //for loop clonsed*************************HTML GENERATEOR LOOP END *****************************
-
-  // console.log(html)
+  });
 
   let distPaths = path.join(__dirname, tempPathHTML);
-  // let template = path.join();
   let template = path.join(`${distPaths}/index_SA.html`);
   let html_file_path =
     distUrl.value != ""
       ? path.join(distUrl.value, "/html-pdf/index_SA.html")
       : template;
-
-  // let htmlContent = buildHtml(inputFile)
-
-  //write file after few second as per image
 
   if (!fs.existsSync(html_file_path)) {
     fs.createWriteStream(html_file_path);
@@ -302,39 +374,43 @@ const makeHtmlFileFirst = (
   setTimeout(() => {
     fs.writeFile(
       html_file_path,
-      `<p style="font-family: arial">${
-        activityName.value != "" ? activityName.value : headerName
-      }</p>`,
+      `
+      <!DOCTYPE html>
+      <html lang="en">
+      <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>${
+            activityName.value != "" ? activityName.value : headerName
+          }</title>
+          <style>
+              body {
+                  width: 1800px;
+              }
+          </style>
+      </head>
+      <body>
+          <p style="font-family: arial">${
+            activityName.value != "" ? activityName.value : headerName
+          }</p>
+          ${html}
+      </body>
+      </html>`,
       "utf8",
       function (err) {
         if (err) {
           console.log(err);
+        } else {
+          require("electron").shell.openExternal(html_file_path);
+          inputFile2.setAttribute(
+            "data-count",
+            `\nHTML File Created Successfully, Please have a look in browser.`
+          );
+          inputFile2.classList.add("success");
         }
       }
     );
-    appendImageContentInHTML();
-    // alert('HTML is Ready, will Open shortly in your browser, please few sec.');
   }, 1000);
-
-  function appendImageContentInHTML() {
-    setTimeout(() => {
-      fs.appendFile(html_file_path, html, "utf8", function (err) {
-        if (err) {
-          console.log(err);
-        }
-      });
-      require("electron").shell.openExternal(html_file_path);
-      // alert('HTML is Ready, will Open shortly in your browser, please few sec.');
-    }, inputFile.length * 50);
-
-    inputFile2.setAttribute(
-      "data-count",
-      `\nHTML File Created Successfully, Please have a look in browser.`
-    );
-    inputFile2.classList.add("success");
-  }
-  // console.log(html_file_path) //Once PDF is one then make below line uncomment
-  // htmltopdfGenerator( "pdf", distPaths, template, filenameForPdf, ext,  pdfwidth, pdfheight)
 };
 
 /****************************************** PDF GENERATOR *****************************************************/
@@ -367,16 +443,16 @@ const htmltopdfGenerator = (
       ? path.join(distPaths, `${fileName}.${typeOfConvertion}`)
       : path.join(distUrl.value, `${fileName}.${typeOfConvertion}`);
   const htmlFilePath = templatePath;
-
+  console.log(pdfFilePath);
   try {
     // required for html file
+    //C:\Users\sali2\Downloads
     if (!fs.existsSync(htmlFilePath)) {
       alert(
-        "Template file does not exists, please demo html file with the name 'index_SA.html'"
+        "Template/html-pdf file does not exists, please add demo html file with the name 'index_SA.html'"
       );
       return;
     }
-
     const readHTMLFile = fs.readFileSync(htmlFilePath, "utf-8");
 
     const quality = typeOfConvertion == "pdf" ? 200 : 300;
